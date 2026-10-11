@@ -12,7 +12,7 @@ const HEX64 = /^[0-9a-f]{64}$/i;
 
 const toJson = (payload) => JSON.stringify(payload, (key, value) => (typeof value === "bigint" ? value.toString() : value));
 
-const app = Fastify({ trustProxy: "127.0.0.1", logger: { level: "info" } });
+const app = Fastify({ trustProxy: "127.0.0.1", logger: { level: "info" }, disableRequestLogging: true });
 app.setReplySerializer(toJson);
 
 app.addHook("onSend", async (request, reply, payload) => {
@@ -37,7 +37,7 @@ app.setErrorHandler((error, request, reply) => {
     const notFound = error.code === -5 || error.code === -8;
     return reply.code(notFound ? 404 : 502).send({ ok: false, error: notFound ? "Not found" : error.message });
   }
-  if (error.name === "TimeoutError" || error.cause?.code === "ECONNREFUSED") {
+  if (error.name === "TimeoutError" || error.message === "fetch failed") {
     return reply.code(503).send({ ok: false, error: "The node is not reachable right now" });
   }
   reply.code(error.statusCode || 500).send({ ok: false, error: error.message || "Request failed" });
