@@ -21,7 +21,7 @@ cat > "$WORK/chain.json" <<'JSON'
   "name": "Explorer Test", "ticker": "EXT", "algorithm": "sha256d",
   "messageStart": "e1e2e3e4", "port": 39555, "bech32": "ext",
   "base58": { "pubkey": 33, "script": 5, "secret": 161, "extPublic": "0488b21e", "extSecret": "0488ade4" },
-  "blockSpacing": 120, "retargetInterval": 10,
+  "blockSpacing": 120, "retargetInterval": 500,
   "powLimit": "7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
   "genesis": { "time": 1760000000, "bits": "207fffff", "message": "Explorer e2e" },
   "subsidy": { "initial": "5000000000", "halvingInterval": 25, "maxHalvings": 64, "reductionPercent": 50, "tail": "0", "premine": "250000000000" }
